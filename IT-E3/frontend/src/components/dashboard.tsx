@@ -17,6 +17,7 @@ const Dashboard: React.FC = () => {
     const [newContact, setNewContact] = useState<Contact>({ _id: "", firstName: "", lastName: "", email: "", phone: "" });
     const [editContact, setEditContact] = useState<Contact | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [searchQuery, setSearchQuery] = useState<string>(""); // State for search query
     const navigate = useNavigate();
     const [isAddModalOpen, setIsAddModalOpen] = useState(false); // State for add modal visibility
     const [isEditModalOpen, setIsEditModalOpen] = useState(false); // State for edit modal visibility
@@ -117,11 +118,31 @@ const Dashboard: React.FC = () => {
         }
     };
 
+    // Filter contacts based on search query
+    const filteredContacts = contacts.filter((contact) => {
+        const lowerQuery = searchQuery.toLowerCase();
+        return (
+            contact.firstName.toLowerCase().includes(lowerQuery) ||
+            contact.lastName.toLowerCase().includes(lowerQuery) ||
+            contact.email.toLowerCase().includes(lowerQuery) ||
+            contact.phone.startsWith(searchQuery) // For phone number, match from left to right
+        );
+    });
+
     return (
         <div className="dashboard-container">
             <div className="dashboard-header">
                 <h1>Dashboard</h1>
                 <h3>Manage and edit your contacts here</h3>
+
+                {/* Search Bar */}
+                <input
+                    type="text"
+                    placeholder="Search by name, email, or phone"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="search-bar"
+                />
             </div>
 
             {error && <p style={{ color: "red" }}>{error}</p>}
@@ -218,7 +239,7 @@ const Dashboard: React.FC = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {contacts.map((contact) => (
+                    {filteredContacts.map((contact) => (
                         <tr key={contact._id}>
                             <td>{contact.firstName}</td>
                             <td>{contact.lastName}</td>
