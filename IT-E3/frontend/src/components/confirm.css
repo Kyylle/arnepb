@@ -1,0 +1,41 @@
+.react-confirm-alert-overlay {
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.react-confirm-alert {
+    font-family: Arial, sans-serif;
+    width: 400px;
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.react-confirm-alert button {
+    font-size: 16px;
+    padding: 8px 16px;
+    margin: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.react-confirm-alert-button-group button:first-child {
+    background: #28a745; /* Green for 'Yes' */
+    color: white;
+}
+
+.react-confirm-alert-button-group button:last-child {
+    background: #dc3545; /* Red for 'No' */
+    color: white;
+}
+
+.react-confirm-alert-button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
